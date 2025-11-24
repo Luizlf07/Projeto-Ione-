@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+        // Número máximo de tarefas/tamanho das tarefas
+#define MAX 150
+#define TAM_tarefas 300
+
+        // Estrutura de uma tarefa
+struct Tarefa {
+    char nome[TAM_tarefas];
+    int prioridade;
+};
+//variaveis
+int main() {
+    struct Tarefa tarefas[MAX];
+    int contador = 0;
+    char continuar;
+    int i = 0;
+
+    do {
+        // Verifica o limite
+        if (contador >= MAX) {
+            printf("Limite de tarefas atingido.\n");
+            break;
+        }
+
+        // Entrada da tarefa
+        printf("Digite a tarefa %d: ", contador + 1);
+        fgets(tarefas[contador].nome, TAM_tarefas, stdin);
+
+        // Remove o '\n' do final da string
+        for ( tarefas[contador].nome[i] != '\0'; i++) {
+            if (tarefas[contador].nome[i] == '\n') {
+                tarefas[contador].nome[i] = '\0';
+                break;
+            }
+        }
+
+        // Entrada da prioridade
+        printf("Digite a prioridade da tarefa (1-urgente a 5-sem pressa): ");
+        scanf("%d", &tarefas[contador].prioridade);
+        getchar(); // Limpa o buffer
+
+        contador++; // numero de tarefas
+
+        // Pergunta se o usuário quer continuar
+        printf("Deseja adicionar outra tarefa? (s/n): ");
+        scanf(" %c", &continuar);
+        getchar(); // Limpa o buffer
+
+    } while (continuar == 's' || continuar == 'S');
+
+    // Exibe todas as tarefas cadastradas
+    printf("\nLista de tarefas cadastradas:\n");
+    for (int i = 0; i < contador; i++) {
+        printf("%d. %s (Prioridade: %d)\n", i + 1, tarefas[i].nome, tarefas[i].prioridade);
+    }
+
+
+    return 0;
+}
