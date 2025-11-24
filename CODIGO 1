@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int main() {
+    char titulo[100], Tarefas [1000];
+    int prazo, prioridade;
+
+    //Cabeçalho
+    printf("--------------------------\n");
+    printf("  CADASTRAMENTO DE TAREFAS \n");
+    printf("--------------------------\n\n");
+
+    //Dados do usuário
+    printf("Digite o título: ");
+    fgets(titulo, sizeof(titulo), stdin);    // Fgets lê o strigs com espaços
+
+    printf("Digite a descrição: ");
+    fgets(Tarefas , sizeof(Tarefas ), stdin);
+
+    printf("Prioridade (1-baixa)(2-média)(3-alta): ");
+    scanf("%i", &prioridade);
+
+    printf("Qual é o prazo em dias:");
+    scanf("%i", &prazo);
+
+    //Exibe os dados cadastrados
+    printf("Tarefa cadastrada!\n\n");
+    printf("Titulo: %s", titulo);
+    printf("Tarefas : %s", Tarefas );
+    printf("Prioridade:");
+    switch (prioridade) {
+        case 1:
+            printf("baixa!\n");
+            break;
+        case 2:
+            printf("Média!\n");
+            break;
+        case 3:
+            printf("Alta!\n");
+            break;
+        default:
+            printf("informaçao invalida!\n"); //Caso valor seja diferente de 1, 2 ou 3
+    }
+    printf("Prazo: %d Dias", prazo);
+
+    return 0;
+}
