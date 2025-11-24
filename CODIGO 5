@@ -1,0 +1,145 @@
+#include <stdio.h>
+        // Quantidade de caracteres
+#define MAX 100
+#define TAM_TAREFAS 1000
+
+struct Tarefa {
+    char nome[TAM_TAREFAS];
+    int prioridade;
+};
+
+struct Tarefa tarefas[MAX];
+    int totalTarefas = 0;
+
+        // Funcao para remover \n do fgets
+int removerQuebraLinha(char *texto) {
+    int i = 0;
+
+    while (texto[i] != '\0') {
+        if (texto[i] == '\n') {
+            texto[i] = '\0';
+            return 1;
+        }
+        i++;
+    }
+    return 0;
+}
+
+        //Cadastrar uma tarefa
+int cadastrarTarefa() {
+    if (totalTarefas >= MAX) {
+        printf("Limite atingido.\n");
+        return -1;
+    }
+
+    printf("Digite a tarefa: ");
+        fgets(tarefas[totalTarefas].nome, TAM_TAREFAS, stdin);
+        removerQuebraLinha(tarefas[totalTarefas].nome); //remove o /n do fgets
+
+    printf("Digite a prioridade da tarefa (1-urgente a 5-sem pressa): ");
+        scanf("%d", &tarefas[totalTarefas].prioridade);
+        getchar();
+
+    totalTarefas++;
+    printf("Tarefa cadastrada com sucesso!\n");
+    return 0;
+}
+
+        //listar todas as tarefas
+int listarTarefas() {
+    if (totalTarefas == 0) {
+        printf("Nenhuma tarefa cadastrada.\n");
+        return -1;
+    }
+
+    printf("\n--- Lista de Tarefas ---\n");
+        for (int i = 0; i < totalTarefas; i++) {
+            printf("%d. %s (Prioridade: %d)\n", i + 1, tarefas[i].nome, tarefas[i].prioridade);
+        }
+    return 0;
+}
+
+        //Editar uma tarefa
+int editarTarefa() {
+    int indice;
+    if (listarTarefas() == -1) return -1;
+
+    printf("\n numero da tarefa que deseja editar: ");
+        scanf("%d", &indice);
+        getchar();
+
+    if (indice < 1 || indice > totalTarefas) {
+        printf("Tarefa inválida.\n");
+        return -1;
+    }
+        // faz o numero começar em 1 ao inves de 0! (0,1,2)computador (1,2,3)humano
+    indice--;
+
+    printf("atualização da tarefa: ");
+        fgets(tarefas[indice].nome, TAM_TAREFAS, stdin);
+        removerQuebraLinha(tarefas[indice].nome);
+
+    printf("Nova prioridade (1 a 5): ");
+        scanf("%d", &tarefas[indice].prioridade);
+        getchar();
+
+    printf("Tarefa editada com sucesso!\n");
+    return 0;
+}
+
+        //Remover uma tarefa
+int removerTarefa() {
+    int indice;
+    if (listarTarefas() == -1) return -1;
+
+    printf("Numero da tarefa que deseja remover: ");
+        scanf("%d", &indice);
+        getchar();
+
+    if (indice < 1 || indice > totalTarefas) {
+        printf("Tarefa invalida.\n");
+        return -1;
+    }
+
+    indice--;
+
+    for (int i = indice; i < totalTarefas - 1; i++) {
+        tarefas[i] = tarefas[i + 1];
+    }
+
+    totalTarefas--;
+    printf("Tarefa removida!\n");
+    return 0;
+}
+
+        // Menu
+int main() {
+    int opcao;
+
+    do {
+        printf("\n_____ TAREFAS ___\n");
+        printf("1. Cadastrar tarefa\n");
+        printf("2. Listar tarefas\n");
+        printf("3. Editar tarefa\n");
+        printf("4. Remover tarefa\n");
+        printf("0. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        getchar();
+
+
+        switch (opcao) {
+            case 1: cadastrarTarefa(); break;
+            case 2: listarTarefas(); break;
+            case 3: editarTarefa(); break;
+            case 4: removerTarefa(); break;
+            case 0: printf("programa encerrado!\n"); break;
+            default: printf("inválida.\n");
+        }
+
+    }
+
+    while (opcao != 0);//faz o codigo repetir, até que o usuario queira sair
+
+    return 0;
+}
