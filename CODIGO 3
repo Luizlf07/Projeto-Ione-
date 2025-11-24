@@ -1,0 +1,44 @@
+#include <stdio.h>
+        //A quantidade máxima de tarefas cadastradas(100) e cada tarefa pode ter até 1000 caracteres
+#define Tarefas 100
+#define Tamanho  1000
+
+int main() {
+    char tarefas[Tarefas][Tamanho ];
+    char continuar;
+    int contador = 0;
+    int i = 0;
+
+    //loop para cadastramento-verificação de limite
+    do{
+        if (contador >= Tarefas){
+            printf("limite de tarefas atingido");
+            break;
+        }
+
+        //cadastramento de tarefas
+        printf("\nInsira a tarefa %d: ", contador + 1);
+            fgets(tarefas[contador], Tamanho , stdin);
+
+        //remove o /n que o fgets inclui
+        while (tarefas[contador][i] != '\0') {
+            if (tarefas[contador][i] == '\n'){
+                (tarefas[contador][i]) = '\0';
+                break;
+            }
+            i++;
+        }
+        //pergunta se a outra tarefa para cadastramento
+        contador++;
+        printf("cadastrar outra tarefa? (s/n): ");
+            scanf("%c", &continuar);
+                getchar();
+    }
+    while (continuar == 's' || continuar == 'S');
+        printf("\nlista de tarefas cadastradas:\n");
+        //Exibe as tarefas cadastradas
+    for (int i =0; i < contador; i++){
+        printf("%d. %s\n", i + 1, tarefas[i]);
+    }
+ return 0;
+}
