@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main() {
+    char nome[100];
+    int prioridade;
+    int dias;
+
+    // Entrada de dados
+    printf("Nome da tarefa: ");
+        fgets(nome, sizeof(nome), stdin);// lê nome com espaços
+
+    printf("Prioridade (1-Alta, 2-Media, 3-Baixa): ");
+        scanf("%d", &prioridade);
+
+    printf("Dias restantes: ");
+        scanf("%d", &dias);
+
+    // prazo
+    if (dias <= 0) {
+        printf("\nPrazo vencido! Tarefa atrasada.\n");
+    }
+    else {
+        printf("\nRestam %d dias para o prazo.\n", dias);
+    }
+
+    // prioridade
+    switch (prioridade) {
+        case 1:
+            printf("Prioridade ALTA — execute o quanto antes!\n");
+            break;
+        case 2:
+            printf("Prioridade MEDIA — planeje para concluir em breve.\n");
+            break;
+        case 3:
+            printf("Prioridade BAIXA — pode aguardar um pouco.\n");
+            break;
+        default:
+            printf("Prioridade invalida!\n");
+            break;
+    }
+
+    return 0;
+}
